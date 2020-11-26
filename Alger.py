@@ -1,6 +1,5 @@
 import pygame
 
-
 class AlgerClass:
     color = (114, 222, 116)
 

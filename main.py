@@ -13,7 +13,7 @@ from Shot import ShotClass
 from Enemy import EnemyClass
 from Terrain import TerrainClass
 from random import randint as rando
-from Vand import VandClass
+from Alger import AlgerClass
 
 clock = pygame.time.Clock()
 
@@ -23,7 +23,11 @@ gameWindowWidth=1366
 terrain=[]
 enemies=[]
 shots=[]
-vand=[]
+alger=[]
+
+def createAlger():
+    alger.append(AlgerClass(screen, _x= rando(-100,gameWindowWidth+100), _y=rando(-100,gameWindowHeight+100),_width=rando(20,75) ,_height=rando(20,75)))
+
 
 
 highScore=0
@@ -46,7 +50,7 @@ def spawnEnemy():
     enemies.append(EnemyClass(screen,spawnPosX=rando(10,gameWindowWidth),spawnPosY=rando(0,gameWindowHeight),speedX=rando(-10,10),speedY=rando(-10,10)))
 
 def createVand():
-    vand.append(VandClass(screen, _x= rando(-100,gameWindowWidth+100), _y=rando(-100,gameWindowHeight+100),_width=rando(20,75) ,_height=rando(20,75)))
+    vand.append(AlgerClass(screen,spawnPosX=rando(10,gameWindowWidth),spawnPosY=rando(0,gameWindowHeight),speedX=rando(-10,10),speedY=rando(-10,10)))
 
 for i in range(5):
     spawnEnemy()
@@ -106,13 +110,6 @@ while not done:
     for shot in shots:
         shot.update()
 
-    for vand in vand:
-        if collisionChecker(vand, playerObject):
-            vand.remove(vand)
-            playerObject.collisionSFX.play()
-            playerObject.points += 1
-            createVand()
-
     for enemy in enemies:
         enemyIsDead = False #boolean to check if enemy is dead, and remove it at end of for loop
         enemy.update()
@@ -139,6 +136,13 @@ while not done:
             enemies.remove(enemy)
             spawnEnemy()
 
+    for alger in alger:
+        if collisionChecker(alger, playerObject):
+            alger.remove(alger)
+            playerObject.collisionSFX.play()
+            playerObject.points += 1
+            createAlger()
+
     #DRAW GAME OBJECTS:
     screen.fill((0, 0, 0)) #blank screen. (or maybe draw a background)
     playerObject.draw()
@@ -159,8 +163,8 @@ while not done:
     for tile in terrain:
         tile.draw()
 
-    for vand in vand:
-        vand.draw()
+    for alger in alger:
+        alger.draw()
 
     pygame.display.flip()
     clock.tick(60)
