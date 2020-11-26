@@ -22,7 +22,7 @@ gameWindowWidth=600
 terrain=[]
 enemies=[]
 shots=[]
-#kommentar
+
 highScore=0
 try:
     with open('highScoreFile') as file:
@@ -47,9 +47,9 @@ for i in range(10):
     spawnEnemy()
 
 def createTerrain():
-    terrain.append(TerrainClass(screen, 0, 400,800,20))
-#    terrain.append(TerrainClass(screen, 400, 200,20,200))
-#    terrain.append(TerrainClass(screen, 600, 400,20,200))
+    terrain.append(TerrainClass(screen, 200, 200,200,20))
+    terrain.append(TerrainClass(screen, 400, 200,20,200))
+    terrain.append(TerrainClass(screen, 600, 400,20,200))
 
 createTerrain()
 
