@@ -4,7 +4,7 @@ pygame.init()
 pygame.mixer.init(frequency=44100, size=-16, channels=6, buffer=2048)
 font = pygame.font.Font('freesansbold.ttf', 32)
 
-musicPath = os.path.normpath(os.path.join('assets', 'music','VicePoint.mp3'))
+musicPath = os.path.normpath(os.path.join('assets', 'music',''))
 pygame.mixer.music.load(musicPath) #https://soundcloud.com/synthwave80s/01-vice-point
 pygame.mixer.music.play(-1)
 
