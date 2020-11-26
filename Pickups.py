@@ -9,6 +9,11 @@ class PickupsClass:
     sfxPath = os.path.normpath(os.path.join('assets', 'sfx', 'pew.wav'))
     effect = pygame.mixer.Sound(sfxPath)
 
+    pickups.aapend(PickupsClass(x,y))
+
+
+
+
     def __init__(self,screen, spawnPosX, spawnPosY, playerSpeedX, playerSpeedY):
         self.x = spawnPosX
         self.y = spawnPosY

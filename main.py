@@ -4,24 +4,27 @@ pygame.init()
 pygame.mixer.init(frequency=44100, size=-16, channels=6, buffer=2048)
 font = pygame.font.Font('freesansbold.ttf', 32)
 
-musicPath = os.path.normpath(os.path.join('assets', 'music',''))
-pygame.mixer.music.load(musicPath) #https://soundcloud.com/synthwave80s/01-vice-point
-pygame.mixer.music.play(-1)
+#musicPath = os.path.normpath(os.path.join('assets', 'music',''))
+#pygame.mixer.music.load(musicPath) #https://soundcloud.com/synthwave80s/01-vice-point
+#pygame.mixer.music.play(-1)
 
 from Player import PlayerClass
 from Shot import ShotClass
 from Enemy import EnemyClass
 from Terrain import TerrainClass
-
 from random import randint as rando
+from Vand import VandClass
+
 clock = pygame.time.Clock()
 
-gameWindowHeight=800
-gameWindowWidth=600
+gameWindowHeight=768
+gameWindowWidth=1366
 
 terrain=[]
 enemies=[]
 shots=[]
+vand=[]
+
 
 highScore=0
 try:
@@ -40,16 +43,18 @@ def collisionChecker(firstGameObject, secondGameObject):
             return True
 
 def spawnEnemy():
-    enemies.append(EnemyClass(screen,spawnPosX=rando(0,gameWindowWidth),spawnPosY=rando(0,gameWindowHeight),speedX=rando(-10,10),speedY=rando(-10,10)))
+    enemies.append(EnemyClass(screen,spawnPosX=rando(10,gameWindowWidth),spawnPosY=rando(0,gameWindowHeight),speedX=rando(-10,10),speedY=rando(-10,10)))
 
+def createVand():
+    vand.append(VandClass(screen, _x= rando(-100,gameWindowWidth+100), _y=rando(-100,gameWindowHeight+100),_width=rando(20,75) ,_height=rando(20,75)))
 
-for i in range(10):
+for i in range(5):
     spawnEnemy()
 
 def createTerrain():
-    terrain.append(TerrainClass(screen, 200, 200,200,20))
+    terrain.append(TerrainClass(screen, 600, 200,300,10))
+    terrain.append(TerrainClass(screen, 740, 200,10,125))
     terrain.append(TerrainClass(screen, 400, 200,20,200))
-    terrain.append(TerrainClass(screen, 600, 400,20,200))
 
 createTerrain()
 
@@ -101,6 +106,13 @@ while not done:
     for shot in shots:
         shot.update()
 
+    for vand in vand:
+        if collisionChecker(vand, playerObject):
+            vand.remove(vand)
+            playerObject.collisionSFX.play()
+            playerObject.points += 1
+            createVand()
+
     for enemy in enemies:
         enemyIsDead = False #boolean to check if enemy is dead, and remove it at end of for loop
         enemy.update()
@@ -132,7 +144,7 @@ while not done:
     playerObject.draw()
 
     #Score:                                                 antialias?, color
-    text = font.render('SCORE: ' + str(playerObject.points), True,(0, 255, 0))
+    text = font.render('Vand opsamlet: ' + str(playerObject.points), True,(0, 255, 0))
     screen.blit(text,(0,0))
 
     text = font.render('HIGHSCORE: ' + str(highScore), True, (255, 0, 0))
@@ -146,6 +158,9 @@ while not done:
 
     for tile in terrain:
         tile.draw()
+
+    for vand in vand:
+        vand.draw()
 
     pygame.display.flip()
     clock.tick(60)
