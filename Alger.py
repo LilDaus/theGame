@@ -1,7 +1,8 @@
 import pygame
 
+
 class AlgerClass:
-    color = (114, 222, 116)
+    color = (123, 199, 243)
 
     def __init__(self, screen, _x, _y, _width, _height):
         self.theScreen = screen

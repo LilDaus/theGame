@@ -7,7 +7,7 @@ class PlayerClass:
     ySpeed=0
     maxSpeed=5
     width=20
-    height=20
+    height=30
     color=(0, 128, 255)
     points=0
 
