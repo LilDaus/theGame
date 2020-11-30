@@ -7,6 +7,8 @@ class EnemyClass:
     height=16
     color=(255 , 0, 128)
 
+    image = pygame.image.load('Tiger.png')
+
     sfxPath = os.path.normpath(os.path.join('assets', 'sfx', 'plingpling.wav'))
     effect = pygame.mixer.Sound(sfxPath)
 
@@ -22,7 +24,7 @@ class EnemyClass:
         self.y+=self.ySpeed
 
     def draw(self):
-        pygame.draw.rect(self.theScreen, self.color, pygame.Rect(self.x, self.y, self.width, self.height))
+        self.theScreen.blit(self.image, (self.x, self.y))
 
     def playSound(self):
         self.effect.play()
