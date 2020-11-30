@@ -1,5 +1,5 @@
 import pygame
-
+import os
 pygame.init()
 surface = pygame.display.set_mode((600, 400))
 
@@ -9,9 +9,9 @@ pygame.init()
 pygame.mixer.init(frequency=44100, size=-16, channels=6, buffer=2048)
 font = pygame.font.Font('freesansbold.ttf', 32)
 
-#musicPath = os.path.normpath(os.path.join('assets', 'music',''))
-#pygame.mixer.music.load(musicPath) #https://soundcloud.com/synthwave80s/01-vice-point
-#pygame.mixer.music.play(-1)
+musicPath = os.path.normpath(os.path.join('assets', 'music','MusikQuang.mp3'))
+pygame.mixer.music.load(musicPath)
+pygame.mixer.music.play(-1)
 
 from Player import PlayerClass
 from Enemy import EnemyClass
@@ -58,7 +58,7 @@ for i in range(5):
 def createAlger():
     algers.append(AlgerClass(screen, _x= rando(-100,gameWindowWidth+100), _y=rando(-100,gameWindowHeight+100),_width=rando(20,20) ,_height=rando(20,20)))
 
-for i in range(10):
+for i in range(5):
         createAlger()
 for i in range(10):
         createAlger()
