@@ -1,3 +1,5 @@
+
+#Her der indalder vi de midler der skal bruge for at få vores pygame, os og pygame menu til at virke
 import pygame
 import os
 import pygame_menu
@@ -8,16 +10,17 @@ surface = pygame.display.set_mode((600, 400))
 
 pygame.mixer.init(frequency=44100, size=-16, channels=6, buffer=2048)
 font = pygame.font.Font('freesansbold.ttf', 32)
-
+#Her der kommer den musik ind som er i spillet. Den bliver impoteret via. en mp3 fil. Men virker også med andre former for filer
 musicPath = os.path.normpath(os.path.join('assets', 'music','MusikQuang.mp3'))
 pygame.mixer.music.load(musicPath)
 pygame.mixer.music.play(-1)
 
 clock = pygame.time.Clock()
 
+#Her er størrelsen på spillet. Vi har gået efter Benjamins computers skærm
 gameWindowHeight=768
 gameWindowWidth=1366
-
+#Her der impotere vi de forskellige klasser ind i vores main kode. Det gør det meget overskueligt
 from Player import PlayerClass
 from Enemy import EnemyClass
 #from Shot import ShotClass
@@ -25,12 +28,12 @@ from Terrain import TerrainClass
 from random import randint as rando
 from Alger import AlgerClass
 
+background_image = pygame.transform.scale(pygame.image.load('Bane.png').convert_alpha(),(gameWindowWidth, gameWindowHeight))
 
 terrain=[]
 enemies=[]
 shots=[]
 algers=[]
-
 
 
 screen = pygame.display.set_mode((gameWindowWidth, gameWindowHeight))
@@ -40,19 +43,19 @@ screen = pygame.display.set_mode((gameWindowWidth, gameWindowHeight))
 def collisionChecker(firstGameObject, secondGameObject):
         if firstGameObject.x + firstGameObject.width > secondGameObject.x and firstGameObject.x < secondGameObject.x + secondGameObject.width and firstGameObject.y + firstGameObject.height > secondGameObject.y and firstGameObject.y < secondGameObject.y + secondGameObject.height:
             return True
-
+#Her kommer fjenderne i spillet til stede. Her koder vi deres y og x postion. Vi har også hastiheden på fjenden her
 def spawnEnemy():
-    enemies.append(EnemyClass(screen,spawnPosX=rando(10,gameWindowWidth),spawnPosY=rando(10,gameWindowHeight),speedX=rando(1,1),speedY=rando(1,1)))
+    enemies.append(EnemyClass(screen,spawnPosX=rando(0,gameWindowWidth),spawnPosY=rando(0,gameWindowHeight),speedX=rando(-10,2),speedY=rando(-1,2)))
 
 for i in range(10):
         spawnEnemy()
 
-
+#Her der kommer vores vand/alger ind i spillet.
 def createAlger():
-    algers.append(AlgerClass(screen, _x= rando(-100,gameWindowWidth+100), _y=rando(-100,gameWindowHeight+100),_width=rando(20,20) ,_height=rando(20,20)))
+    algers.append(AlgerClass(screen, _x= rando(-10,gameWindowWidth+100), _y=rando(-100,gameWindowHeight+100),_width=rando(25,25) ,_height=rando(25,25)))
 
 
-
+#Her er terrænget. Det er alle de murer der er placeret på vores bane. De tal der står er kordinaterne for dem
 def createTerrain():
     terrain.append(TerrainClass(screen, 585, 130, 200, 10))  # 1
     terrain.append(TerrainClass(screen, 680, 130, 10, 70))  # 2
@@ -77,7 +80,13 @@ def createTerrain():
     terrain.append(TerrainClass(screen, 1296, 384, 70, 10))  # 21
     terrain.append(TerrainClass(screen, 420, 360, 40, 40))  # 22
     terrain.append(TerrainClass(screen, 910, 360, 40, 40))  # 23
-
+    terrain.append(TerrainClass(screen, 150, 0, 60, 100))  # 24
+    terrain.append(TerrainClass(screen, 150, 160, 60, 448))  # 25
+    terrain.append(TerrainClass(screen, 150, 668, 60, 100))  # 26
+    terrain.append(TerrainClass(screen, 1156, 0, 60, 100))  # 27
+    terrain.append(TerrainClass(screen, 1156, 160, 60, 448))  # 28
+    terrain.append(TerrainClass(screen, 1156, 668, 60, 100))  # 29
+#Her får vi vores menu til at kunne trykke på knappen start. Under det kan man se highscoren
 def start_the_game():
     highScore = 0
 
@@ -89,10 +98,9 @@ def start_the_game():
     except:
         print("highScoreFile not found, resetting to 0.")
 
-    for i in range(5):
+    for i in range(30):
         createAlger()
-    for i in range(10):
-        createAlger()
+
 
     createTerrain()
 
@@ -146,7 +154,7 @@ def start_the_game():
                 shot.update()
 
             for enemy in enemies:
-                enemyIsDead = False #boolean to check if enemy is dead, and remove it at end of for loop
+                enemyIsDead = False
                 enemy.update()
 
                 if enemy.x>gameWindowWidth or enemy.y>gameWindowHeight or enemy.x<0 or enemy.y<0:
@@ -163,7 +171,7 @@ def start_the_game():
                             highScore = playerObject.points
                 if collisionChecker(enemy,playerObject):
                     playerObject.collisionSFX.play()
-                    print("OUCH!")
+                    print("Quan mistede vand")
 
                     playerObject.points=0
 
@@ -181,6 +189,7 @@ def start_the_game():
 
             #DRAW GAME OBJECTS:
             screen.fill((0, 0, 0)) #blank screen. (or maybe draw a background)
+            screen.blit(background_image,[0,0])
             playerObject.draw()
 
 
@@ -215,12 +224,10 @@ def start_the_game():
         file.write(str(highScore))
 
 
+menu = pygame_menu.Menu(height=300,width=400,theme=pygame_menu.themes.THEME_ORANGE,title='Hent vand til Quan')
 
-
-
-menu = pygame_menu.Menu(height=300,width=400,theme=pygame_menu.themes.THEME_BLUE,title='Hent vand til Quang')
-
-menu.add_text_input('Quang')
+menu.add_text_input('Quan'
+                    '')
 menu.add_button('Start', start_the_game)
 menu.add_button('Quit', pygame_menu.events.EXIT)
 

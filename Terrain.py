@@ -1,3 +1,5 @@
+from _ast import Load
+
 import pygame
 
 
@@ -13,3 +15,5 @@ class TerrainClass:
 
     def draw(self):
         pygame.draw.rect(self.theScreen, self.color, pygame.Rect(self.x, self.y, self.width, self.height))
+
+

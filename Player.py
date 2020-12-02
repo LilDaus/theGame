@@ -11,6 +11,8 @@ class PlayerClass:
     color=(0, 128, 255)
     points=0
 
+    image = pygame.image.load('Quan.png')
+
     sfxPath = os.path.normpath(os.path.join('assets', 'sfx', 'aaw.wav')) #kan også være .ogg eller .mp3
     collisionSFX = pygame.mixer.Sound(sfxPath)
 
@@ -55,4 +57,4 @@ class PlayerClass:
             self.y=0
 
     def draw(self):
-        pygame.draw.rect(self.theScreen, self.color, pygame.Rect(self.x, self.y, self.width, self.height))
+        self.theScreen.blit(self.image, (self.x, self.y))

@@ -7,7 +7,7 @@ class EnemyClass:
     height=16
     color=(255 , 0, 128)
 
-    image = pygame.image.load('Tiger.png')
+    image = pygame.image.load('Loeve.png')
 
     sfxPath = os.path.normpath(os.path.join('assets', 'sfx', 'plingpling.wav'))
     effect = pygame.mixer.Sound(sfxPath)
