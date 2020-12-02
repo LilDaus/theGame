@@ -28,7 +28,7 @@ from Terrain import TerrainClass
 from random import randint as rando
 from Alger import AlgerClass
 
-background_image = pygame.transform.scale(pygame.image.load('Bane.png').convert_alpha(),(gameWindowWidth, gameWindowHeight))
+background_image = pygame.transform.scale(pygame.image.load('background3.png').convert_alpha(),(gameWindowWidth, gameWindowHeight))
 
 terrain=[]
 enemies=[]
@@ -45,7 +45,7 @@ def collisionChecker(firstGameObject, secondGameObject):
             return True
 #Her kommer fjenderne i spillet til stede. Her koder vi deres y og x postion. Vi har også hastiheden på fjenden her
 def spawnEnemy():
-    enemies.append(EnemyClass(screen,spawnPosX=rando(0,gameWindowWidth),spawnPosY=rando(0,gameWindowHeight),speedX=rando(-10,2),speedY=rando(-1,2)))
+    enemies.append(EnemyClass(screen,spawnPosX=rando(0,gameWindowWidth),spawnPosY=rando(0,gameWindowHeight),speedX=rando(-7,2),speedY=rando(-4,2)))
 
 for i in range(10):
         spawnEnemy()
@@ -78,8 +78,8 @@ def createTerrain():
     terrain.append(TerrainClass(screen, 870, 600, 60, 10))  # 19
     terrain.append(TerrainClass(screen, 0, 384, 70, 10))  # 20
     terrain.append(TerrainClass(screen, 1296, 384, 70, 10))  # 21
-    terrain.append(TerrainClass(screen, 420, 360, 40, 40))  # 22
-    terrain.append(TerrainClass(screen, 910, 360, 40, 40))  # 23
+    #terrain.append(TerrainClass(screen, 420, 360, 40, 40))  # 22
+    #terrain.append(TerrainClass(screen, 910, 360, 40, 40))  # 23
     terrain.append(TerrainClass(screen, 150, 0, 60, 100))  # 24
     terrain.append(TerrainClass(screen, 150, 160, 60, 448))  # 25
     terrain.append(TerrainClass(screen, 150, 668, 60, 100))  # 26
