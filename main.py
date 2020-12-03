@@ -27,9 +27,11 @@ from Enemy import EnemyClass
 from Terrain import TerrainClass
 from random import randint as rando
 from Alger import AlgerClass
+from TerrainNew import TerrainNewClass
 
 background_image = pygame.transform.scale(pygame.image.load('background3.png').convert_alpha(),(gameWindowWidth, gameWindowHeight))
 
+terrain2=[]
 terrain=[]
 enemies=[]
 shots=[]
@@ -80,12 +82,18 @@ def createTerrain():
     terrain.append(TerrainClass(screen, 1296, 384, 70, 10))  # 21
     #terrain.append(TerrainClass(screen, 420, 360, 40, 40))  # 22
     #terrain.append(TerrainClass(screen, 910, 360, 40, 40))  # 23
+
+
+
+def createterrain2():
     terrain.append(TerrainClass(screen, 150, 0, 60, 100))  # 24
     terrain.append(TerrainClass(screen, 150, 160, 60, 448))  # 25
     terrain.append(TerrainClass(screen, 150, 668, 60, 100))  # 26
     terrain.append(TerrainClass(screen, 1156, 0, 60, 100))  # 27
     terrain.append(TerrainClass(screen, 1156, 160, 60, 448))  # 28
     terrain.append(TerrainClass(screen, 1156, 668, 60, 100))  # 29
+
+createterrain2()
 #Her får vi vores menu til at kunne trykke på knappen start. Under det kan man se highscoren
 def start_the_game():
     highScore = 0
@@ -226,7 +234,7 @@ def start_the_game():
 
 menu = pygame_menu.Menu(height=300,width=400,theme=pygame_menu.themes.THEME_ORANGE,title='Hent vand til Quan')
 
-menu.add_text_input('Quan'
+menu.add_text_input('Styr med piltasterne'
                     '')
 menu.add_button('Start', start_the_game)
 menu.add_button('Quit', pygame_menu.events.EXIT)
